@@ -13,12 +13,29 @@ const octokit = github.getOctokit(GITHUB_TOKEN);
 
 // inputs defined in action metadata file
 const org_Name = core.getInput('org_name');
+const ent_Name = core.getInput('ent_name');
 const csv_path = core.getInput('csv_path');
-const is_delete = core.getInput('is_delete');
+//const is_delete = core.getInput('is_delete');
 const inactive_only = core.getInput('inactive_only');
 const inactive_days = core.getInput('inactive_days');
 
 let totalSeats = 0;
+const is_ent = false;
+const resource = '';
+
+// Checks if both org_Name and ent_Name are either both provided or both not provided.
+if (!org_Name === !ent_Name) {
+    core.setFailed('Either org_name or ent_name is required');
+    return;
+}
+// if ent_name is not provided, then it is an org level call
+if (!ent_Name) {
+    resource = org_Name;
+}
+else {
+    is_ent = true;
+    resource = ent_Name;
+}
 
 // Our CSV output fields
 const fields = [
@@ -57,11 +74,16 @@ const fields = [
 ];
 
 // Copilot User Management API call
-async function getUsage(org, pageNo) {
+async function getUsage(resource, pageNo) {
     try {
-
-        return await octokit.request('GET /orgs/{org}/copilot/billing/seats', {
-            org: org_Name,
+        path = 'GET /enterprises/{ent}/copilot/billing/seats';
+        if (!is_ent) {
+            path = 'GET /orgs/{org}/copilot/billing/seats'
+        }
+         
+        return await octokit.request(path, {
+            org: resource,
+            ent: resource,
             page: pageNo,
             headers: {
                 'X-GitHub-Api-Version': '2022-11-28'
@@ -74,7 +96,7 @@ async function getUsage(org, pageNo) {
 }
 
 // Extract Copilot usage data with a pagination of 50 records per page
-async function run(org_Name, csv_path) {
+async function run(resource, csv_path) {
 
     let addTitleRow = true;
     let pageNo = 1;
@@ -84,7 +106,7 @@ async function run(org_Name, csv_path) {
         await makeDir(dirname(csv_path));
         do {
             // invoke the graphql query execution
-            await getUsage(org_Name, pageNo).then(usageResult => {
+            await getUsage(resource, pageNo).then(usageResult => {
                 let seatsData = usageResult.data.seats;
 
                 if (addTitleRow) {
@@ -117,22 +139,6 @@ async function run(org_Name, csv_path) {
                 const opts = { fields, "header": addTitleRow };
 
                 seatsData.forEach(seat => { seat.status = 'pending_cancellation'; });
-                if (is_delete.toString() === 'true') {
-                    // delete the user from copilot seat assignment
-                    var selected_users = seatsData.map(seat => seat.assignee.login.toLowerCase());
-                    
-                    // delete all selected users from copilot seat assignment
-                    octokit.request('DELETE /orgs/{org}/copilot/billing/selected_users', {
-                        org: org_Name,
-                        selected_usernames: selected_users,
-                        headers: {
-                            'X-GitHub-Api-Version': '2022-11-28'
-                        }
-                    })
-
-                    // modify the status to deleted
-                    seatsData.forEach(seat => {seat.status = 'deleted';});
-                }
                 // append to the existing file (or create and append if needed)
                 require("fs").appendFileSync(csv_path, `${parse(seatsData, opts)}\n`);
 
@@ -148,7 +154,7 @@ async function run(org_Name, csv_path) {
     }
 }
 
-console.log(`preamble: org name: ${org_Name} `);
+console.log(`preamble: is_ent: ${is_ent}, name: ${resource} `);
 
 // run the action code
-run(org_Name, csv_path);
+run(resource, csv_path);

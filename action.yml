@@ -9,22 +9,13 @@ inputs:
     required: true
   org_name: 
     description: 'Organization name'
-    required: true
+    required: false
+  ent_name: 
+    description: 'Enterprise name'
+    required: false    
   csv_path:
     description: 'CSV File path'
     required: true
-  is_delete:
-    description: 'Eliminate Inactive Users and Users inactive for the past n days'
-    required: true
-    default: false
-  inactive_only:
-    description: 'Remove only the inactive users from seat assignments'
-    required: true
-    default: false
-  inactive_days:
-    description: 'Number of days to identify an inactive user.'
-    required: true
-    default: '25'
 runs:
   using: 'node20'
   main: 'app/index.js'

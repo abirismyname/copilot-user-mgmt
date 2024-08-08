@@ -12,7 +12,7 @@ Create a Fine-grained personal access tokens with
        
   - **Resource owner** as Organization
   - **read & write** access to **GitHub Copilot for Business** under _Organization permissions_
-        ![Screenshot 2023-08-01 at 4 09 43 PM](https://github.com/ambilykk/copilot-usage-report/assets/10282550/543d34a0-c0ab-40c7-a192-a2b7ab0fcd7c)
+        ![Screenshot 2023-08-01 at 4 09 43 PM](https://github.com/abirismyname/copilot-usage-report/assets/10282550/543d34a0-c0ab-40c7-a192-a2b7ab0fcd7c)
 
 Pass this token as an input to the action - GITHUB_TOKEN
 
@@ -33,15 +33,14 @@ Sample workflow 0: Manual trigger to **Report** and **Eliminate** Copilot Seat a
                 description: 'Organization name'
                 required: true
                 default: 'octodemo'
+              ent_name: 
+                description: 'Enterprise name'
+                required: true
+                default: 'octodemo'                
               csv_path:
                 description: 'CSV File path'
                 required: true
                 default: 'data/Copilot-Usage-Report.csv'
-              is_delete:
-                description: 'Eliminate Inactive Users and Users inactive for the past n days'
-                required: false
-                type: boolean
-                default: false
               inactive_only:
                 description: 'Remove only the inactive users from seat assignments'
                 required: false
@@ -58,12 +57,11 @@ Sample workflow 0: Manual trigger to **Report** and **Eliminate** Copilot Seat a
         
         steps:
           - name: Copilot User Management
-            uses: ambilykk/copilot-user-mgmt@main
+            uses: abirismyname/copilot-user-mgmt@main
             with:        
               GITHUB_TOKEN: ${{ secrets.GH_TOK }}
               org_name: ${{ inputs.org_name }} 
               csv_path: ${{ inputs.csv_path }} 
-              is_delete: ${{ inputs.is_delete }}
               inactive_only: ${{ inputs.inactive_only }}
               inactive_days: ${{ inputs.inactive_days }}
         
@@ -75,7 +73,7 @@ Sample workflow 0: Manual trigger to **Report** and **Eliminate** Copilot Seat a
      
 ```
 This will shows all options in the workflow dispatch UI. You can select the options and trigger the workflow.
-![Screenshot 2024-03-05 at 12 37 22 PM](https://github.com/ambilykk/copilot-user-mgmt/assets/10282550/4b9f56c2-a1ea-4365-a544-9d9df12c01d9)
+![Screenshot 2024-03-05 at 12 37 22 PM](https://github.com/abirismyname/copilot-user-mgmt/assets/10282550/4b9f56c2-a1ea-4365-a544-9d9df12c01d9)
 
 
 
@@ -93,7 +91,7 @@ Sample workflow 1: Copilot User Management to **Report** Inactive Users
         
         steps:
         - name: Copilot User Management
-            uses: ambilykk/copilot-user-mgmt@main
+            uses: abirismyname/copilot-user-mgmt@main
             with:        
               GITHUB_TOKEN: ${{secrets.ORG_TOKEN}}
               org_name: 'octodemo'
@@ -121,7 +119,7 @@ Sample workflow 2: Copilot User Management to **Eliminate** Copilot Seat assignm
         
         steps:
         - name: Copilot User Management
-            uses: ambilykk/copilot-user-mgmt@main
+            uses: abirismyname/copilot-user-mgmt@main
             with:        
               GITHUB_TOKEN: ${{secrets.ORG_TOKEN}}
               org_name: 'octodemo'
@@ -150,7 +148,7 @@ Sample workflow 3: Revise Copilot User Management to **Report** Inactive Users a
         
         steps:
         - name: Copilot User Management
-            uses: ambilykk/copilot-user-mgmt@main
+            uses: abirismyname/copilot-user-mgmt@main
             with:        
               GITHUB_TOKEN: ${{secrets.ORG_TOKEN}}
               org_name: 'octodemo'
@@ -178,7 +176,7 @@ Sample workflow 4: Revise Copilot User Management to **Eliminate** Copilot Seat 
         
         steps:
         - name: Copilot User Management
-            uses: ambilykk/copilot-user-mgmt@main
+            uses: abirismyname/copilot-user-mgmt@main
             with:        
               GITHUB_TOKEN: ${{secrets.ORG_TOKEN}}
               org_name: 'octodemo'
@@ -222,7 +220,7 @@ You can Fork and modify the Actions code to incorporate User management using Te
 ## Report
 Copilot usage report is added as a build artifact in the workflow. You can download the report from the workflow run page.
 
-![Screenshot 2023-08-01 at 4 14 10 PM](https://github.com/ambilykk/copilot-usage-report/assets/10282550/7fef1ea7-5bf8-4ba8-b5d7-95396d08693b)
+![Screenshot 2023-08-01 at 4 14 10 PM](https://github.com/abirismyname/copilot-usage-report/assets/10282550/7fef1ea7-5bf8-4ba8-b5d7-95396d08693b)
 
 
 # License
