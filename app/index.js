@@ -20,7 +20,7 @@ const inactive_only = core.getInput('inactive_only');
 const inactive_days = core.getInput('inactive_days');
 
 let totalSeats = 0;
-const is_ent = false;
+let is_ent = false;
 let resource = '';
 
 // Checks if both org_Name and ent_Name are either both provided or both not provided.
