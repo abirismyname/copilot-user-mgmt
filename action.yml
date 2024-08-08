@@ -16,6 +16,14 @@ inputs:
   csv_path:
     description: 'CSV File path'
     required: true
+  inactive_only:
+    description: 'Remove only the inactive users from seat assignments'
+    required: true
+    default: false
+  inactive_days:
+    description: 'Number of days to identify an inactive user.'
+    required: true
+    default: '25'    
 runs:
   using: 'node20'
   main: 'app/index.js'
