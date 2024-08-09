@@ -1,5 +1,5 @@
 {
-  "name": "copilot-user-mgmt",
+  "name": "copilot-user-report",
   "version": "1.0.0",
   "description": "Regularly optimize cost and seat usage for an organization by removing unused Copilot for Business seat assignments from the Organization.",
   "main": "index.js",
@@ -8,14 +8,14 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/abirismyname/copilot-user-mgmt.git"
+    "url": "git+https://github.com/abirismyname/copilot-user-report.git"
   },
   "author": "abirismyname",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/abirismyname/copilot-user-mgmt/issues"
+    "url": "https://github.com/abirismyname/copilot-user-report/issues"
   },
-  "homepage": "https://github.com/abirismyname/copilot-user-mgmt#readme",
+  "homepage": "https://github.com/abirismyname/copilot-user-report#readme",
   "dependencies": {
     "@actions/core": "^1.10.1",
     "@actions/github": "^6.0.0",

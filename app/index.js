@@ -60,16 +60,8 @@ const fields = [
         value: 'last_activity_editor'
     },
     {
-        label: 'Pending Cancellation Date',
-        value: 'pending_cancellation_date'
-    },
-    {
         label: 'Team',
         value: 'assigning_team.name'
-    },
-    {
-        label: 'Status',
-        value: 'status'
     }
 ];
 
@@ -138,7 +130,6 @@ async function run(resource, csv_path) {
                 // ALERT! - create our updated opts
                 const opts = { fields, "header": addTitleRow };
 
-                seatsData.forEach(seat => { seat.status = 'pending_cancellation'; });
                 // append to the existing file (or create and append if needed)
                 require("fs").appendFileSync(csv_path, `${parse(seatsData, opts)}\n`);
 
