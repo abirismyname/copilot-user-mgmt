@@ -139,8 +139,9 @@ You can Fork and modify the Actions code to incorporate User management using Te
 ## Report
 Copilot usage report is added as a build artifact in the workflow. You can download the report from the workflow run page.
 
-![Screenshot 2023-08-01 at 4 14 10 PM](https://github.com/abirismyname/copilot-usage-report/assets/10282550/7fef1ea7-5bf8-4ba8-b5d7-95396d08693b)
+## Thanks
 
+Thanks to [ambilykk](https://github.com/ambilykk/) for doing most of the work!
 
 # License
 
