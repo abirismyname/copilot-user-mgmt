@@ -1,4 +1,4 @@
-name: 'Copilot User Management'
+name: 'Copilot User Report'
 description: 'Retrieve Copilot seat usage for an enterprise or organization.'
 branding:
   icon: download
