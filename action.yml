@@ -1,8 +1,8 @@
 name: 'Copilot User Management'
-description: 'Optimize organization costs and seat usage by periodically removing unused Copilot for Business seat assignments.'
+description: 'Retrieve Copilot seat usage for an enterprise or organization.'
 branding:
-  icon: 'download'
-  color: 'blue'
+  icon: download
+  color: orange
 inputs:
   GITHUB_TOKEN:
     description: 'GitHub token'
@@ -17,9 +17,9 @@ inputs:
     description: 'CSV File path'
     required: true
   inactive_only:
-    description: 'Remove only the inactive users from seat assignments'
+    description: 'Show only the inactive users from seat assignments'
     required: true
-    default: false
+    default: 'false'
   inactive_days:
     description: 'Number of days to identify an inactive user.'
     required: true
